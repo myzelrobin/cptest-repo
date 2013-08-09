@@ -130,29 +130,30 @@ public class TodoContentProvider extends ContentProvider
 		{
 			case TODOS:
 				Log.w(TodoContentProvider.class.getName(), "will delete item with selections(" + selection 
-                        + "=" + Arrays.toString(selectionArgs) +  ") from database " + db.getPath());
+                        + "=" + Arrays.toString(selectionArgs) + ") from table " + TodoTable.TABLE_TODO);
 				rowsDeleted = db.delete(TodoTable.TABLE_TODO, selection, selectionArgs);
 				Log.w(TodoContentProvider.class.getName(), "deleted item id=" + rowsDeleted 
-                        + " from database " + db.getPath());
+                        + " from table " + TodoTable.TABLE_TODO);
 				break;
 			case TODO_ID:
 				String requestedID = uri.getLastPathSegment();
 				if (TextUtils.isEmpty(selection))
 				{
 					Log.w(TodoContentProvider.class.getName(), "will delete item id=" + requestedID 
-                            + " from database " + db.getPath());
+                            + " from table " + TodoTable.TABLE_TODO);
 					rowsDeleted = db.delete(TodoTable.TABLE_TODO, TodoTable.COLUMN_ID + "=" + requestedID, null);
 					Log.w(TodoContentProvider.class.getName(), "deleted item id=" + requestedID 
-                            + " from database " + db.getPath());
+                            + " from table " + TodoTable.TABLE_TODO);
 				}
 				else
 				{
 					Log.w(TodoContentProvider.class.getName(), "will delete item id=" + requestedID 
-                            + " and selecitons(" + selection + ") from database " + db.getPath());
+                            + " and selecitons(" + selection + "=" + Arrays.toString(selectionArgs) 
+                            + ") from table " + TodoTable.TABLE_TODO);
 					rowsDeleted = db.delete(TodoTable.TABLE_TODO, 
                                             TodoTable.COLUMN_ID + "=" + requestedID + " and " + selection, selectionArgs);
 					Log.w(TodoContentProvider.class.getName(), "deleted item id=" + rowsDeleted 
-                            + " from database " + db.getPath());
+                            + " from table " + TodoTable.TABLE_TODO);
 				}
 				break;
 			default:
@@ -172,29 +173,30 @@ public class TodoContentProvider extends ContentProvider
 		{
 			case TODOS:
 				Log.w(TodoContentProvider.class.getName(), "will update item with selections(" + selection 
-                        + ") from database " + db.getPath());
+                        + "=" + Arrays.toString(selectionArgs) + ") from table " + TodoTable.TABLE_TODO);
 				rowsUpdated = db.update(TodoTable.TABLE_TODO, values, selection, selectionArgs);
 				Log.w(TodoContentProvider.class.getName(), "updated item id=" + rowsUpdated 
-                        + " from database " + db.getPath());
+                        + " from table " + TodoTable.TABLE_TODO);
 				break;
 			case TODO_ID:
 				String requestedID = uri.getLastPathSegment();
 				if (TextUtils.isEmpty(selection))
 				{
 					Log.w(TodoContentProvider.class.getName(), "will update item id=" + requestedID 
-                            + " from database " + db.getPath());
+                            + " from table " + TodoTable.TABLE_TODO);
 					rowsUpdated = db.update(TodoTable.TABLE_TODO, values, TodoTable.COLUMN_ID + "=" + requestedID, null);
 					Log.w(TodoContentProvider.class.getName(), "updated item id=" + rowsUpdated 
-                            + " from database " + db.getPath());
+                            + " from table " + TodoTable.TABLE_TODO);
 				}
 				else
 				{
 					Log.w(TodoContentProvider.class.getName(), "will update item id=" + requestedID 
-                            + " and selecitons(" + selection + ") from database " + db.getPath());
+                            + " and selecitons(" + selection + "=" + Arrays.toString(selectionArgs) 
+                            + ") from table " + TodoTable.TABLE_TODO);
 					rowsUpdated = db.update(TodoTable.TABLE_TODO, values, 
                                             TodoTable.COLUMN_ID + "=" + requestedID + " and " + selection, selectionArgs);
 					Log.w(TodoContentProvider.class.getName(), "updated item id=" + rowsUpdated 
-                            + " from database " + db.getPath());
+                            + " from table " + TodoTable.TABLE_TODO);
 				}
 				break;
 			default:
