@@ -86,7 +86,8 @@ public class MainActivity extends ListActivity implements LoaderManager.LoaderCa
 		return super.onContextItemSelected(item);
 	}
 
-	private void createTodo() {
+	private void createTodo() 
+	{
 		Intent i = new Intent(this, DetailActivity.class);
 		startActivity(i);
 	}

@@ -64,7 +64,7 @@ public class DetailActivity extends Activity
 						finish();
 					}
 				}
-			});
+		});
 	}
 
 	private void fillData(Uri uri) 
