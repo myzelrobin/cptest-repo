@@ -28,7 +28,8 @@ public class DetailActivity extends Activity
 	private Uri todoUri;
 
 	@Override
-	protected void onCreate(Bundle bundle) {
+	protected void onCreate(Bundle bundle) 
+	{
 		super.onCreate(bundle);
 		setContentView(R.layout.todo_edit);
 
