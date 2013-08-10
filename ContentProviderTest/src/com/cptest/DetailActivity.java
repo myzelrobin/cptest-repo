@@ -28,7 +28,8 @@ public class DetailActivity extends Activity
 	private Uri todoUri;
 
 	@Override
-	protected void onCreate(Bundle bundle) {
+	protected void onCreate(Bundle bundle) 
+	{
 		super.onCreate(bundle);
 		setContentView(R.layout.todo_edit);
 
@@ -43,65 +44,71 @@ public class DetailActivity extends Activity
 		todoUri = (bundle == null) ? null : (Uri) bundle.getParcelable(TodoContentProvider.CONTENT_ITEM_TYPE);
 
 		// Or passed from the other activity
-		if (extras != null) {
+		if (extras != null) 
+		{
 			todoUri = extras.getParcelable(TodoContentProvider.CONTENT_ITEM_TYPE);
 			fillData(todoUri);
 		}
 
-		confirmButton.setOnClickListener(new View.OnClickListener() {
-				public void onClick(View view) {
-					if (TextUtils.isEmpty(mTitleText.getText().toString())) {
+		confirmButton.setOnClickListener(new View.OnClickListener() 
+		{
+				public void onClick(View view) 
+				{
+					if (TextUtils.isEmpty(mTitleText.getText().toString())) 
+					{
 						makeToast();
-					} else {
+					} 
+					else 
+					{
 						setResult(RESULT_OK);
 						finish();
 					}
 				}
-
 			});
 	}
 
-	private void fillData(Uri uri) {
+	private void fillData(Uri uri) 
+	{
 		String[] projection = { TodoTable.COLUMN_SUMMARY,
 			TodoTable.COLUMN_DESCRIPTION, TodoTable.COLUMN_CATEGORY };
-		Cursor cursor = getContentResolver().query(uri, projection, null, null,
-												   null);
-		if (cursor != null) {
+		Cursor cursor = getContentResolver().query(uri, projection, null, null, null);
+		if (cursor != null) 
+		{
 			cursor.moveToFirst();
-			String category = cursor.getString(cursor
-											   .getColumnIndexOrThrow(TodoTable.COLUMN_CATEGORY));
-
-			for (int i = 0; i < mCategory.getCount(); i++) {
-
+			String category = cursor.getString(cursor.getColumnIndexOrThrow(TodoTable.COLUMN_CATEGORY));
+			for (int i = 0; i < mCategory.getCount(); i++) 
+			{
 				String s = (String) mCategory.getItemAtPosition(i);
-				if (s.equalsIgnoreCase(category)) {
+				if (s.equalsIgnoreCase(category)) 
+				{
 					mCategory.setSelection(i);
 				}
 			}
 
-			mTitleText.setText(cursor.getString(cursor
-												.getColumnIndexOrThrow(TodoTable.COLUMN_SUMMARY)));
-			mBodyText.setText(cursor.getString(cursor
-											   .getColumnIndexOrThrow(TodoTable.COLUMN_DESCRIPTION)));
+			mTitleText.setText(cursor.getString(cursor.getColumnIndexOrThrow(TodoTable.COLUMN_SUMMARY)));
+			mBodyText.setText(cursor.getString(cursor.getColumnIndexOrThrow(TodoTable.COLUMN_DESCRIPTION)));
 
 			// Always close the cursor
 			cursor.close();
 		}
 	}
 
-	protected void onSaveInstanceState(Bundle outState) {
+	protected void onSaveInstanceState(Bundle outState) 
+	{
 		super.onSaveInstanceState(outState);
 		saveState();
 		outState.putParcelable(TodoContentProvider.CONTENT_ITEM_TYPE, todoUri);
 	}
 
 	@Override
-	protected void onPause() {
+	protected void onPause() 
+	{
 		super.onPause();
 		saveState();
 	}
 
-	private void saveState() {
+	private void saveState() 
+	{
 		String category = (String) mCategory.getSelectedItem();
 		String summary = mTitleText.getText().toString();
 		String description = mBodyText.getText().toString();
@@ -109,7 +116,8 @@ public class DetailActivity extends Activity
 		// Only save if either summary or description
 		// is available
 
-		if (description.length() == 0 && summary.length() == 0) {
+		if (description.length() == 0 && summary.length() == 0) 
+		{
 			return;
 		}
 
@@ -118,16 +126,20 @@ public class DetailActivity extends Activity
 		values.put(TodoTable.COLUMN_SUMMARY, summary);
 		values.put(TodoTable.COLUMN_DESCRIPTION, description);
 
-		if (todoUri == null) {
+		if (todoUri == null) 
+		{
 			// New todo
 			todoUri = getContentResolver().insert(TodoContentProvider.CONTENT_URI, values);
-		} else {
+		} 
+		else 
+		{
 			// Update todo
 			getContentResolver().update(todoUri, values, null, null);
 		}
 	}
 
-	private void makeToast() {
+	private void makeToast() 
+	{
 		Toast.makeText(DetailActivity.this, "Please maintain a summary", Toast.LENGTH_LONG).show();
 	}
 } 
